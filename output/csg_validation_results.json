@@ -1,0 +1,367 @@
+{
+  "evaluation_kind": "exact_fact_lookup_simulation",
+  "limitations": [
+    "This evaluates key-value fact updates, not a language model or trained LoRA adapter.",
+    "Scenarios are hand-authored and results do not establish general model improvement.",
+    "Accuracy is descriptive only; this benchmark does not estimate statistical significance."
+  ],
+  "total_questions": 7,
+  "baseline": {
+    "correct": 5,
+    "total": 7,
+    "accuracy": 0.7142857142857143
+  },
+  "csg": {
+    "correct": 6,
+    "total": 7,
+    "accuracy": 0.8571428571428571,
+    "improvements": 2,
+    "regressions": 1
+  },
+  "overall_without_csg": 0.7142857142857143,
+  "overall_with_csg": 0.8571428571428571,
+  "overall_winner": "with_csg",
+  "scenarios": [
+    {
+      "name": "Verified Update",
+      "without_csg": 0.5,
+      "with_csg": 1.0,
+      "winner": "with_csg",
+      "conflicts": [
+        {
+          "key": "current_president",
+          "previous": "Old value",
+          "incoming": "New value",
+          "confidence": 0.95,
+          "resolution": "adapter-wins"
+        }
+      ],
+      "baseline_details": [
+        {
+          "key": "current_president",
+          "question": "Who is the current president?",
+          "expected": "New value",
+          "actual": "Old value",
+          "correct": false
+        },
+        {
+          "key": "chief_of_staff",
+          "question": "Who is the chief of staff?",
+          "expected": "Mia Lopez",
+          "actual": "Mia Lopez",
+          "correct": true
+        }
+      ],
+      "csg_details": [
+        {
+          "key": "current_president",
+          "question": "Who is the current president?",
+          "expected": "New value",
+          "actual": "New value",
+          "correct": true
+        },
+        {
+          "key": "chief_of_staff",
+          "question": "Who is the chief of staff?",
+          "expected": "Mia Lopez",
+          "actual": "Mia Lopez",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "name": "Weak Conflicting Update",
+      "without_csg": 1.0,
+      "with_csg": 1.0,
+      "winner": "tie",
+      "conflicts": [
+        {
+          "key": "security_policy",
+          "previous": "require MFA",
+          "incoming": "allow legacy auth",
+          "confidence": 0.4,
+          "resolution": "core-wins"
+        }
+      ],
+      "baseline_details": [
+        {
+          "key": "security_policy",
+          "question": "What is the security policy?",
+          "expected": "require MFA",
+          "actual": "require MFA",
+          "correct": true
+        },
+        {
+          "key": "compliance_status",
+          "question": "What is the compliance status?",
+          "expected": "approved",
+          "actual": "approved",
+          "correct": true
+        }
+      ],
+      "csg_details": [
+        {
+          "key": "security_policy",
+          "question": "What is the security policy?",
+          "expected": "require MFA",
+          "actual": "require MFA",
+          "correct": true
+        },
+        {
+          "key": "compliance_status",
+          "question": "What is the compliance status?",
+          "expected": "approved",
+          "actual": "approved",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "name": "Novel Fact",
+      "without_csg": 0.5,
+      "with_csg": 1.0,
+      "winner": "with_csg",
+      "conflicts": [],
+      "baseline_details": [
+        {
+          "key": "new_product",
+          "question": "What is the new product?",
+          "expected": "Atlas",
+          "actual": "unknown",
+          "correct": false
+        },
+        {
+          "key": "organization_type",
+          "question": "What type of organization?",
+          "expected": "research lab",
+          "actual": "research lab",
+          "correct": true
+        }
+      ],
+      "csg_details": [
+        {
+          "key": "new_product",
+          "question": "What is the new product?",
+          "expected": "Atlas",
+          "actual": "Atlas",
+          "correct": true
+        },
+        {
+          "key": "organization_type",
+          "question": "What type of organization?",
+          "expected": "research lab",
+          "actual": "research lab",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "name": "Bad Confident Update",
+      "without_csg": 1.0,
+      "with_csg": 0.0,
+      "winner": "without_csg",
+      "conflicts": [
+        {
+          "key": "stable_version",
+          "previous": "4.2",
+          "incoming": "9.9",
+          "confidence": 0.97,
+          "resolution": "adapter-wins"
+        }
+      ],
+      "baseline_details": [
+        {
+          "key": "stable_version",
+          "question": "What is the verified stable version?",
+          "expected": "4.2",
+          "actual": "4.2",
+          "correct": true
+        }
+      ],
+      "csg_details": [
+        {
+          "key": "stable_version",
+          "question": "What is the verified stable version?",
+          "expected": "4.2",
+          "actual": "9.9",
+          "correct": false
+        }
+      ]
+    }
+  ],
+  "scenario_results": [
+    {
+      "name": "Verified Update",
+      "without_csg": 0.5,
+      "with_csg": 1.0,
+      "winner": "with_csg",
+      "conflicts": [
+        {
+          "key": "current_president",
+          "previous": "Old value",
+          "incoming": "New value",
+          "confidence": 0.95,
+          "resolution": "adapter-wins"
+        }
+      ],
+      "baseline_details": [
+        {
+          "key": "current_president",
+          "question": "Who is the current president?",
+          "expected": "New value",
+          "actual": "Old value",
+          "correct": false
+        },
+        {
+          "key": "chief_of_staff",
+          "question": "Who is the chief of staff?",
+          "expected": "Mia Lopez",
+          "actual": "Mia Lopez",
+          "correct": true
+        }
+      ],
+      "csg_details": [
+        {
+          "key": "current_president",
+          "question": "Who is the current president?",
+          "expected": "New value",
+          "actual": "New value",
+          "correct": true
+        },
+        {
+          "key": "chief_of_staff",
+          "question": "Who is the chief of staff?",
+          "expected": "Mia Lopez",
+          "actual": "Mia Lopez",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "name": "Weak Conflicting Update",
+      "without_csg": 1.0,
+      "with_csg": 1.0,
+      "winner": "tie",
+      "conflicts": [
+        {
+          "key": "security_policy",
+          "previous": "require MFA",
+          "incoming": "allow legacy auth",
+          "confidence": 0.4,
+          "resolution": "core-wins"
+        }
+      ],
+      "baseline_details": [
+        {
+          "key": "security_policy",
+          "question": "What is the security policy?",
+          "expected": "require MFA",
+          "actual": "require MFA",
+          "correct": true
+        },
+        {
+          "key": "compliance_status",
+          "question": "What is the compliance status?",
+          "expected": "approved",
+          "actual": "approved",
+          "correct": true
+        }
+      ],
+      "csg_details": [
+        {
+          "key": "security_policy",
+          "question": "What is the security policy?",
+          "expected": "require MFA",
+          "actual": "require MFA",
+          "correct": true
+        },
+        {
+          "key": "compliance_status",
+          "question": "What is the compliance status?",
+          "expected": "approved",
+          "actual": "approved",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "name": "Novel Fact",
+      "without_csg": 0.5,
+      "with_csg": 1.0,
+      "winner": "with_csg",
+      "conflicts": [],
+      "baseline_details": [
+        {
+          "key": "new_product",
+          "question": "What is the new product?",
+          "expected": "Atlas",
+          "actual": "unknown",
+          "correct": false
+        },
+        {
+          "key": "organization_type",
+          "question": "What type of organization?",
+          "expected": "research lab",
+          "actual": "research lab",
+          "correct": true
+        }
+      ],
+      "csg_details": [
+        {
+          "key": "new_product",
+          "question": "What is the new product?",
+          "expected": "Atlas",
+          "actual": "Atlas",
+          "correct": true
+        },
+        {
+          "key": "organization_type",
+          "question": "What type of organization?",
+          "expected": "research lab",
+          "actual": "research lab",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "name": "Bad Confident Update",
+      "without_csg": 1.0,
+      "with_csg": 0.0,
+      "winner": "without_csg",
+      "conflicts": [
+        {
+          "key": "stable_version",
+          "previous": "4.2",
+          "incoming": "9.9",
+          "confidence": 0.97,
+          "resolution": "adapter-wins"
+        }
+      ],
+      "baseline_details": [
+        {
+          "key": "stable_version",
+          "question": "What is the verified stable version?",
+          "expected": "4.2",
+          "actual": "4.2",
+          "correct": true
+        }
+      ],
+      "csg_details": [
+        {
+          "key": "stable_version",
+          "question": "What is the verified stable version?",
+          "expected": "4.2",
+          "actual": "9.9",
+          "correct": false
+        }
+      ]
+    }
+  ],
+  "chart_path": "output/csg_validation_results.png",
+  "report_path": "output/csg_validation_results.json",
+  "summary": {
+    "overall_without_csg": 0.7142857142857143,
+    "overall_with_csg": 0.8571428571428571,
+    "overall_winner": "with_csg"
+  }
+}
